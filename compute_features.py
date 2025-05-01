@@ -6,7 +6,7 @@ import numpy as np
 from os.path import join
 
 sys.path.insert(0, 'src')
-from datasets import Datasets
+from datasets_ import Datasets
 
 import torch
 import torch.nn as nn

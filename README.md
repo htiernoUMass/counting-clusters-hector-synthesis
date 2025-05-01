@@ -87,14 +87,14 @@ Our approach provides a statistical estimate of the number of clusters based on 
 
 The code provides an implementation of the nested-MC and nested-IS approaches. By default, the script will run each 10 times with approximately 70 different numbers of samples (pairwise comparisons) for human vetting. It then computes the average estimates and confidence intervals across these runs. The script will take around 1 minute for the MacaqueFaces dataset. You can run the estimator with:
 ```
-python run_estimator.py --dataset MacaqueFaces --runs 10
+python run_estimator.py --dataset MacaqueFaces --runs 100
 ```
 The previous command line should display the following:
 ```
->>> [loading MacaqueFaces-L-384-megad features...] done (6280, 1536) [0.0s]
->>> [creating GT matrix...] done (6280, 6280) [4.4s]
->>> [calculating similarity matrix (cosine)...] done (6280, 6280) [18.8s]
->>> [running nested-MC and nested-NIS (10 runs)...] done [0.8m]
+[loading MacaqueFaces-L-384-megad features...] done (6280, 1536) [0.0s]
+[creating GT matrix...] done (6280, 6280) [4.0s]
+[calculating similarity matrix (cosine)...] done (6280, 6280) [14.5s]
+[running nested-MC and nested-NIS (100 runs)...] done [6.9m]
 ```
 
 The script will save the results as `results_MacaqueFaces_L-384_megad.pdf`. You can see the estimates converging to the true value and the confidence intervals getting narrower with more effort.

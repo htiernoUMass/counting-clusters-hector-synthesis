@@ -3,14 +3,6 @@ from random import choices
 from scipy.spatial.distance import pdist, squareform
 
 
-def softmax_t(x, tau):
-    """ Returns softmax probabilities with temperature tau
-        Input:  x -- 1-dimensional array
-        Output: s -- 1-dimensional array
-    """
-    e_x = np.exp(x / tau)
-    return e_x / e_x.sum()
-
 def calculate_similarity(data, metric='cisne', tau=0.5):
     '''
     Calculate pair-wise similarity of all elements in dataset. It is produced between each sample features using
@@ -42,11 +34,9 @@ def calculate_similarity(data, metric='cisne', tau=0.5):
     dists = 1 - dists
     s_ij = squareform(dists) # convert to matrix
     s_ij[s_ij == 0] = 1 # add 1s to the matrix diagonal
-    s_ij_sm = np.zeros_like(s_ij)
-    for i, s_ij_i in enumerate(s_ij):
-        s_ij_sm[i, :] = softmax_t(s_ij_i, tau)
+    s_ij[s_ij < 0] = 0 # clip negative values
 
-    return s_ij_sm
+    return s_ij
 
 def nested_is(gt_s_ij, s_ij, N_v, N_n, n_hat=None, ci=False):
     '''

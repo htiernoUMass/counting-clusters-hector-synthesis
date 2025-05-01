@@ -20,7 +20,6 @@ def parse_args():
     parser.add_argument('--pretraining', type=str, default='megad', help='for features')
     parser.add_argument('--metric', type=str, default='cosine', help='for similarity')
     parser.add_argument('--ratio', type=int, default=1, help='Nn/Nv ratio (use 7 for GiraffeZebraID)')
-    parser.add_argument('--tau', type=float, default=0.5, help='temperature for similarity softmax')
     parser.add_argument('--runs', type=int, default=10, help='number of runs to plot results')
     parser.add_argument('--seed', type=int, default=0, help='seed for features')
     parser.add_argument('--verbose', action='store_true', help='print intermediate progress')
@@ -62,7 +61,7 @@ if __name__ == '__main__':
             cont += 1
             current_label = meta[i]['label']
         feats[cont].append(feat)
-    s_ij = calculate_similarity(feats, metric=args.metric, tau=args.tau)
+    s_ij = calculate_similarity(feats, metric=args.metric)
     print('done %s [%.1fs]'%(str(s_ij.shape), time.time() - ti))
 
     # Calculate Nested-IS and Nested-MC estimates
