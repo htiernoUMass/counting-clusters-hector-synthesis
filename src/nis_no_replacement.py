@@ -74,27 +74,29 @@ def no_resampling_nis(gt_similarity, similarity, N_v, N_n, n_hat=None, ci=False,
             if edge[2] == 1:
                 number_known_neighbors += 1 
 
-        # # sample neighbors of image proportional to the similarity
-        # q = [(similarity[image][i], i) for i in range(len(similarity[image])) if i not in images_to_remove]
-        # total_pool_weight = sum(similarity[image][i] for i in range(len(similarity[image])) if i not in images_to_remove)
-        # sampled_neighbors = MaxGumbel(q, N_n)
-        # probability_at_sampling_neighbor = similarity[image][sampled_neighbors] * len(sampled_neighbors) / total_pool_weight
-
         # sample neighbors proportional to the average similarity to the thresholded neighbors of vertex with multiplicative gating by the similarity to image
         high_confidence_neighbors = np.where(thresholded_sim[image] == 1)[0]
 
         # Multiplicative Gating
         if len(high_confidence_neighbors) > 1:
             q = [(similarity[image][x] * (sum(similarity[x][high_confidence_neighbors]) - similarity[image][x]) / (len(high_confidence_neighbors) - 1), x) for x in range(len(similarity[image]))]
+            q_trimmed =  [x for x in q if x[0] not in images_to_remove]
+
+            sampled_neighbors = MaxGumbel([x for x in q_trimmed], N_n)
+
+            probability_at_sampling_neighbor = np.array([float(x[0]) for x in q])[sampled_neighbors]
+            total_pool_weight = sum(probability_at_sampling_neighbor)
+            probability_at_sampling_neighbor *= len(sampled_neighbors)
+            probability_at_sampling_neighbor /= total_pool_weight
+
+            estimated_degree_final = number_known_neighbors
+
         else:
-            q = [(similarity[image][x], x) for x in range(len(similarity[image]))]
-
-        sampled_neighbors = MaxGumbel(q, N_n)
-
-        probability_at_sampling_neighbor = [x[0] for x in q]
-        total_pool_weight = sum(probability_at_sampling_neighbor)
-        probability_at_sampling_neighbor *= len(sampled_neighbors)
-        probability_at_sampling_neighbor /= total_pool_weight
+            # sample neighbors of image proportional to the similarity
+            q = [(similarity[image][i], i) for i in range(len(similarity[image])) if i not in images_to_remove]
+            total_pool_weight = sum([similarity[image][i] for i in range(len(similarity[image])) if i not in images_to_remove])
+            sampled_neighbors = MaxGumbel(q, N_n)
+            probability_at_sampling_neighbor = similarity[image][sampled_neighbors] * len(sampled_neighbors) / total_pool_weight
 
         estimated_degree_final = number_known_neighbors
 
