@@ -18,9 +18,6 @@ from config import dset_root, dset_classes
 
 import timm
 
-# import os
-# os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-
 def parse_args():
     """
     Parse input arguments

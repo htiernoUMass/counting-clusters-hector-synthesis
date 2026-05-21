@@ -17,6 +17,8 @@ If you would like to familiarize yourself with the database, then visualize.py i
 
 1) python visualize.py
 
+visualize.py also has functionality to show the value of the clique collapsing idea. There is a commented block in main, which when uncommented will generate a third drawing. The third drawing shows how clique collapse changes the similarity graph for the selected individuals.
+
 ## Compare NIS and NIS Without Replacement
 
 Running the following will generate a plot comparing NIS (taken from the original GitHub with no changes) to NIS without replacement. The NIS without replacement methods can be found in src/nis_no_replacement.py.
