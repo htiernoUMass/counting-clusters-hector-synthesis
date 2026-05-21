@@ -88,4 +88,3 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('-' * 89)
         print('Exiting from training early')
-
