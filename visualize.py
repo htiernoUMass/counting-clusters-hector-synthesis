@@ -107,6 +107,6 @@ if __name__ == '__main__':
     nx_plot_graph(sim_trimmed > threshold, classes_trimmed)
     plt.title('Thresholded Similarity Graph')
 
-    G = greedy_clique_collapse_plot(sim_trimmed > threshold, classes_trimmed)    
-    plt.title('Collapsed Thresholded Similarity Graph')
+    # G = greedy_clique_collapse_plot(sim_trimmed > threshold, classes_trimmed)    
+    # plt.title('Collapsed Thresholded Similarity Graph')
     plt.show()
