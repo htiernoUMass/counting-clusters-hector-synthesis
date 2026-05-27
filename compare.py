@@ -1,5 +1,4 @@
 # ---------- imports ----------
-
 import numpy as np
 import matplotlib.pyplot as plt
 from src.methods import nested_is
@@ -56,7 +55,6 @@ def NIS(sim, gt_sim, runs, max_N, ratio=1, lw=1.5, fs=9):
     x /= ((tn*(tn-1))/2)
     x*=100
 
-
     fig, ax = plt.subplots(1,1, figsize=(2.7,2.3))
     plt.plot(x, f_hat_m_nis_all, color='maroon', linestyle='--', linewidth=lw, label='Nested-m-IS') 
     plt.plot(x, f_hat_nis_all, color='blue', linestyle='--', linewidth=lw, label='Nested-IS') 
@@ -74,4 +72,5 @@ def NIS(sim, gt_sim, runs, max_N, ratio=1, lw=1.5, fs=9):
 # ---------- main ----------
 if __name__ == '__main__':
 
-    NIS(sim, gt_sim, runs = 5, max_N = 102, ratio=1)
+    print('running')
+    NIS(sim, gt_sim, 100, max_N = 300, ratio=1)

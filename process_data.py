@@ -71,4 +71,4 @@ if __name__ == '__main__':
     s_ij = calculate_similarity(feats, metric=args.metric)
     print('done %s [%.1fs]'%(str(s_ij.shape), time.time() - ti))
 
-    np.savez_compressed('WhaleSharkGT.npz', gt_similarity = s_ij)
+    np.savez_compressed('WhaleSharkID.npz', similarity = s_ij)
